@@ -1,4 +1,4 @@
-  const event = [
+  const events = [
       {
         Meus: [
           {
@@ -37,4 +37,4 @@
       }
   ]
 
-  export default event;
+  export default events;

@@ -1,47 +1,46 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, Text, Image, StyleSheet, Dimensions } from 'react-native'
 import Entypo from 'react-native-vector-icons/Entypo'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import exemplo from 'assets/exemplo.jpg'
 import useUsers from 'hooks/useUsers'
+import AuthContext from 'context/auth'
 
 const { width, height }= Dimensions.get('window')
 
 
 
 export default function BackgroundEvent() {
-  const { users } = useUsers()
+  const {user} = useContext(AuthContext)
   return (
-    <View style={style.profileView}>
-            <View style={style.description}>
+          <View style={style.description}>
             <View style={style.sectionPicture}>
                 <Image source={exemplo} style={style.pictureProfile} />
                 <View>
-                  {/* <Text style={style.name}>{users.firstName}</Text> */}
-                  <Text style={style.sport}>Karate | Musculação</Text>
+                  <Text style={style.nameEvent}>{user.firstName}</Text>
+                  <Text style={style.sportEvent}>Karate | Musculação</Text>
                 </View>
-                <View style={style.contentIcons}>
-                    <View style={style.boxIcon1}>
+                <View style={style.contentIconsEvent}>
+                    <View style={style.boxIcon1Event}>
                       <FontAwesome5 name="calendar-alt" size={35} color={'#FFFF'} />
-                      <Text style={style.numberCalendar}>16</Text>
+                      <Text style={style.numberCalendarEvent}>16</Text>
                     </View>
-                    <View style={style.boxIcon2}>
+                    <View style={style.boxIcon2Event}>
                       <Entypo name="trophy" size={35} color={'#FFFF'} />
-                      <Text style={style.numberTrophy}>36</Text>
+                      <Text style={style.numberTrophyEvent}>36</Text>
                     </View>
-                    <View style={style.boxIcon3}>
+                    <View style={style.boxIcon3Event}>
                       <FontAwesome5 name="thumbs-up" size={35} color={'#FFFF'} />
-                      <Text style={style.numberHandShake}>9</Text>
+                      <Text style={style.numberHandShakeEvent}>9</Text>
                     </View>
                 </View>
             </View>
-        </View>
-    </View>
+         </View>
   )
 }
 
 export function BackgroundProfile() {
-  const { users } = useUsers()
+  const {user} = useContext(AuthContext)
   return (
     <View style={style.description}>
         <View style={style.backgroundProfileContent}>
@@ -51,7 +50,7 @@ export function BackgroundProfile() {
         <View>
           <Image source={exemplo} style={style.picturePerfil} />
           <View>
-            {/* <Text style={style.name}>{users.firstName}</Text> */}
+            <Text style={style.name}>{user.firstName}</Text>
             <Text style={style.sport}>Musculação | Karate</Text>
           </View>
         </View>
@@ -94,31 +93,31 @@ const style = StyleSheet.create({
         borderRadius: 100,
         borderColor: '#FFFF',
         borderWidth: 4,
-        marginRight: 15,
+        marginRight: 15
     },
-    name: {
+    nameEvent: {
       fontSize: 25,
       fontWeight: "bold",
       color: "#FFFF",
     },
-    sport: {
+    sportEvent: {
       fontSize: 15,
       fontWeight: 'bold',
       color: "#FFFF",
     },
-    contentIcons: {
+    contentIconsEvent: {
       paddingLeft: 20,
     },
-    boxIcon1: {
+    boxIcon1Event: {
         paddingVertical: 10
     },
-    boxIcon2: {
+    boxIcon2Event: {
         paddingVertical: 10
     },
-    boxIcon3: {
+    boxIcon3Event: {
         paddingVertical: 10
     },
-    numberCalendar: {
+    numberCalendarEvent: {
       position: 'absolute',
       width: 35,
       height: 35,
@@ -136,7 +135,7 @@ const style = StyleSheet.create({
       textAlign: 'center',
       borderColor: '#6bb314'
     },
-    numberTrophy: {
+    numberTrophyEvent: {
       position: 'absolute',
       top: 10,
       right: -35,
@@ -152,7 +151,7 @@ const style = StyleSheet.create({
       textAlign: 'center',
       borderColor: '#6bb314'
     },
-    numberHandShake: {
+    numberHandShakeEvent: {
       position: 'absolute',
       top: 10,
       right: -35,

@@ -1,10 +1,13 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import Input from 'components/Form/Input'
 import useUsers from 'hooks/useUsers'
 import { useNavigation } from '@react-navigation/native'
+import AuthContext from 'context/auth'
+
 
 export default function Login() {
+  const { signed, user, Login } = useContext(AuthContext)
   const navigation = useNavigation()
   const [error, setError] = useState('')
   const [login, setLogin] = useState({
@@ -15,7 +18,6 @@ export default function Login() {
     text: 'Digite o email:',
     placeholder: 'Email',
   }
-  const { loginUser } = useUsers()
   return (
     <View style={{backgroundColor: '#6bb314', justifyContent: 'center', alignItems: 'center', height: '100%'}}>
       <Input 
@@ -28,8 +30,8 @@ export default function Login() {
         if(login.email == ''){
           setError('Campo obrigatório')
         }else{
-          loginUser(login)
-          navigation.navigate('Home')
+          Login(login.email)
+          // navigation.navigate('Home')
         }
       }}>
         <Text style={style.button}>Entrar</Text>

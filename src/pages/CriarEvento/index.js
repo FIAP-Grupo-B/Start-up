@@ -1,14 +1,12 @@
 import { View, Text } from 'react-native'
-import React, { useState, useRef } from 'react'
-import { TextInput, StyleSheet, FlatList, Dimensions, TouchableOpacity} from 'react-native'
+import React, { useState, useRef, useContext } from 'react'
+import { StyleSheet,  Dimensions, TouchableOpacity} from 'react-native'
 import Select from 'components/Form/Select'
 import Input from 'components/Form/Input'
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
-import Events from '../Evento/data'
-import useEvents from 'hooks/useEvents'
 import { useNavigation } from '@react-navigation/native'
-import useUsers from 'hooks/useUsers'
-// import { useNavigation } from '@react-navigation/native'
+import EventContext from 'context/events'
+import AuthContext from 'context/auth'
 
 const {width, height} = Dimensions.get('window')
 const form = [
@@ -39,9 +37,9 @@ const form = [
   },
 ]
 export default function CriarEvento() {
-  const { users} = useUsers()
   const navigation = useNavigation() 
-  const { createEvent } = useEvents();
+  const { createUserEvents } = useContext(EventContext)
+  const { user } = useContext(AuthContext)
   const [formValue, setFormValue] = useState({
     type: '',
     name: '',
@@ -76,7 +74,8 @@ export default function CriarEvento() {
           />
           <TouchableOpacity onPress={() => {
             if(last){
-              createEvent(formValue, users.id)
+              createUserEvents(formValue, user.id)
+              navigation.navigate('Evento')
             }else{
               handleSlide(index)
             }

@@ -1,19 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useMemo, useEffect } from 'react'
 import { SafeAreaView, ScrollView } from 'react-native'
 import BackgroundEvent from 'components/Profile'
 import { Text, View, StyleSheet, Button, FlatList, Image, TouchableOpacity } from 'react-native'
 import Search from 'components/Search'
 import Icons from 'components/Icons'
-import useEvents from 'hooks/useEvents'
 import { useNavigation } from '@react-navigation/native'
 import exemplo from 'assets/exemplo.jpg'
-import events from 'mocks/events'
+import EventContext from 'context/events'
+import AuthContext from 'context/auth'
 
 export default function Evento() {
-  const [eventList, setEventList] = useState({...events}[0].community)
-  const changeList = (event) => {
-    event == 'my' ? setEventList(events[0].my) : setEventList(events[0].community)
-  }
+  const { events, getUserEvents, getCommunityEvents } = useContext(EventContext)
+  const { user } = useContext(AuthContext)
+  const [eventList, setEventList] = useState({})
+  const eventsLoad = useMemo(() => setEventList(events), [events])
 
   const navigation = useNavigation();
   return (
@@ -26,12 +26,18 @@ export default function Evento() {
         <BackgroundEvent />
         <View style={style.sectionSelection}>
           <View style={style.mySelection} >
-          <TouchableOpacity title="Meus" color='#333333' onPress={() => changeList('my')}>
+          <TouchableOpacity onPress={() => {
+            getUserEvents(user.id)
+          }}>
               <Text style={style.communityText}>Meus</Text>
             </TouchableOpacity>
           </View>
           <View style={style.communitySelection}>
-            <TouchableOpacity title="Comunidade" color='#333333' onPress={() => changeList('community')}>
+            <TouchableOpacity title="Comunidade" color='#333333' 
+            onPress={() => {
+              getCommunityEvents()
+            }}
+            >
               <Text style={style.communityText}>Comunidade</Text>
             </TouchableOpacity>
           </View>
@@ -47,14 +53,14 @@ export default function Evento() {
             renderItem={({item}) =>
                 <View style={style.contentEvent}>
                 <View style={style.contentProfile}>
-                    <Image source={item.profile_image} style={style.imageProfile} />
+                    <Image source={exemplo} style={style.imageProfile} />
                     <View style={style.locationContent}>
                         <Icons font="Ionicons" name="location" size={30} color="#6bb314" />
-                        <Text style={style.locationText}>{item.des_locale}</Text>
+                        <Text style={style.locationText}>{item.locale}</Text>
                     </View>
                 </View>
                 <View style={style.contentDescription}>
-                    <Text style={style.textDescription}>{item.des_description}</Text>
+                    <Text style={style.textDescription}>{item.description}</Text>
                     <View style={{marginTop: 5}}>
                       <Icons font="Ionicons" name="ellipsis-vertical-circle-sharp" size={30} color="#6bb314"/>
                     </View>

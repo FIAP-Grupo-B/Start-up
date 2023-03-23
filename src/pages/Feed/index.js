@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Storys from 'components/Storys'
 import { ScrollView } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Publications from 'components/Publications'
+import AuthContext from 'context/auth'
 
 
 export default function Feed() {

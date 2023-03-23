@@ -63,7 +63,7 @@ export default function Cadastrar() {
               <TouchableOpacity onPress={() => {
                   if(last){
                     createUser(formValue)
-                    // navigation.navigate('Login')
+                    navigation.navigate('Login')
                   }else{
                     handleSlide(index)
                   }

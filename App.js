@@ -7,12 +7,15 @@ import { NavigationContainer } from '@react-navigation/native';
 import StackTabs from 'routes/stackTabs';
 import Login from 'pages/Login';
 import LoginStack from 'routes/loginStack';
-
+import { AuthProvider } from 'context/auth';
+import { EventProvider } from 'context/events';
 function App(){
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar/>
-        <LoginStack />
+          <AuthProvider>
+            <LoginStack />
+          </AuthProvider>
     </SafeAreaView>
   );
 }

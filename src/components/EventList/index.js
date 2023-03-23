@@ -5,7 +5,6 @@ import Icons from 'components/Icons'
 import Search from 'components/Search'
 
 export default function EventList({ event }) {
-    // console.log(event)
   return (
             <FlatList
             data={event}

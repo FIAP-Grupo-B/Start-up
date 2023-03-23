@@ -5,6 +5,7 @@ import { Text, View, Image, StyleSheet, FlatList, Dimensions } from 'react-nativ
 import exemplo from 'assets/exemplo.jpg'
 import { BackgroundProfile } from 'components/Profile'
 import About from 'components/About'
+import AuthContext from 'context/auth'
 
 const { width, height } = Dimensions.get('window')
 
@@ -39,8 +40,7 @@ const feed = [
 ]
 
 export default function PicturesPefil() {
-  const {users} = useUsers()
-  console.log("Login:", users)
+  
   return (
     <View style={style.picture}>
         <View style={style.picturesContent}>
